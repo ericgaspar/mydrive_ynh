@@ -25,6 +25,13 @@ ynh_script_progression "Starting $app's systemd service..."
 ynh_systemctl --service="$app" --action="start" --log_path="systemd"
 
 #=================================================
+# BACKUP THE MONGODB DATABASE
+#=================================================
+ynh_print_info "Backing up the MongoDB database..."
+
+ynh_mongo_dump_db --database=$app > ./dump.bson
+
+#=================================================
 # END OF SCRIPT
 #=================================================
 
