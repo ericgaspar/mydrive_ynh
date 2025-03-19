@@ -49,15 +49,6 @@ ynh_script_progression "Updating $app's configuration files..."
 ynh_config_add --template=".env" --destination="$install_dir/.env"
 
 #=================================================
-# INSTALL DODOC
-#=================================================
-ynh_script_progression "Installing $app..."
-
-pushd "$install_dir"
- 	ynh_hide_warnings ynh_exec_as_app npm install
-popd
-
-#=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
 #=================================================
 ynh_script_progression "Upgrading system configurations related to $app..."
@@ -67,6 +58,16 @@ ynh_config_add_nginx
 ynh_config_add_systemd
 
 yunohost service add "$app" --description="Cloud file storage server" --log="/var/log/$app/$app.log"
+
+#=================================================
+# INSTALL MYDRIVE
+#=================================================
+ynh_script_progression "Installing $app..."
+
+pushd "$install_dir"
+ 	ynh_hide_warnings ynh_exec_as_app npm install
+ 	ynh_hide_warnings ynh_exec_as_app npm run build
+popd
 
 #=================================================
 # START SYSTEMD SERVICE
