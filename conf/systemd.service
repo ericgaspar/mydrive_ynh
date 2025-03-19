@@ -1,5 +1,5 @@
 [Unit]
-Description=do•doc: documentation tool for creativity
+Description=MyDrive: cloud file storage server
 After=network.target
 
 [Service]
