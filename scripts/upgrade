@@ -39,14 +39,14 @@ ynh_systemctl --service=mongod --action=restart --log_path=/var/log/mongodb/mong
 #=================================================
 ynh_script_progression "Upgrading source files..."
 
-ynh_setup_source --dest_dir="$install_dir" --full_replace --keep="settings.json"
+ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env"
 
 #=================================================
 # UPDATE A CONFIG FILE
 #=================================================
 ynh_script_progression "Updating $app's configuration files..."
 
-ynh_config_add --template="settings.example.json" --destination="$install_dir/settings.json"
+ynh_config_add --template=".env" --destination="$install_dir/.env"
 
 #=================================================
 # INSTALL DODOC
@@ -66,7 +66,7 @@ ynh_config_add_nginx
 
 ynh_config_add_systemd
 
-yunohost service add "$app" --description="Documentation tool for creativity" --log="/var/log/$app/$app.log"
+yunohost service add "$app" --description="Cloud file storage server" --log="/var/log/$app/$app.log"
 
 #=================================================
 # START SYSTEMD SERVICE
